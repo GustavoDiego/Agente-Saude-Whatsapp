@@ -3,7 +3,9 @@ Configurações globais da aplicação.
 Carregadas a partir de variáveis de ambiente ou do arquivo `.env`.
 """
 
-from pydantic import BaseSettings, Field
+from pydantic_settings import BaseSettings
+from pydantic import Field
+
 from functools import lru_cache
 
 

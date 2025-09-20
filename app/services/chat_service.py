@@ -1,6 +1,6 @@
 from datetime import datetime
 from app.schemas.chat import ChatRequest, ChatResponse
-from app.services.llm import LLMClient
+from app.services.llm import LLMService
 from app.services.persistence import PersistenceService
 from app.services.triage_guard import TriageGuard
 
@@ -17,14 +17,14 @@ class ChatService:
     5. Retorno da resposta ao cliente chamador.
 
     Dependências externas:
-    - LLMClient: responsável por gerar respostas com base em prompts.
+    - LLMService: responsável por gerar respostas com base em prompts.
     - PersistenceService: responsável por salvar e recuperar mensagens/sessões.
     - TriageGuard: responsável por detectar situações de emergência.
     """
 
     def __init__(
         self,
-        llm_client: LLMClient = LLMClient(),
+        llm_client: LLMService = LLMService(),
         persistence: PersistenceService = PersistenceService(),
         guard: TriageGuard = TriageGuard(),
     ):
