@@ -1,0 +1,36 @@
+[tool.poetry]
+name = "clinicai-whatsapp-agent"
+version = "0.1.0"
+description = "Agente de IA para triagem clínica via WhatsApp"
+authors = ["Gustavo Diego <gustavodiego298@gmail.com>"]
+readme = "README.md"
+packages = [{ include = "app" }]
+
+
+
+[tool.poetry.dependencies]
+python = "^3.11"
+
+fastapi = "^0.115.0"
+uvicorn = { extras = ["standard"], version = "^0.30.6" }
+httpx = "^0.27.2"
+
+pydantic = "^2.9.2"
+python-dotenv = "^1.0.1"
+loguru = "^0.7.2"
+tenacity = "^9.0.0"
+
+motor = "^3.6.0"
+pymongo = "^4.9.2"
+
+langgraph = "^0.2.35"
+langchain = "^0.3.7"
+langchain-core = "^0.3.15"
+langchain-google-genai = "^2.0.4"
+google-generativeai = "^0.8.3"
+
+[tool.poetry.group.dev.dependencies]
+pytest = "^8.3.3"
+pytest-asyncio = "^0.24.0"
+mongomock-motor = "^0.0.21"
+respx = "^0.21.1"

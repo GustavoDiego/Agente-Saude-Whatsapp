@@ -1,0 +1,44 @@
+{
+  "title": "TriageData",
+  "description": "Estrutura padronizada da triagem inicial coletada pelo agente ClinicAI.",
+  "type": "object",
+  "properties": {
+    "main_complaint": {
+      "type": "string",
+      "description": "Queixa principal relatada pelo paciente."
+    },
+    "symptoms": {
+      "type": "string",
+      "description": "Descrição detalhada dos sintomas apresentados."
+    },
+    "duration": {
+      "type": "string",
+      "description": "Tempo decorrido desde o início dos sintomas."
+    },
+    "frequency": {
+      "type": "string",
+      "description": "Frequência com que os sintomas ocorrem."
+    },
+    "intensity": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 10,
+      "description": "Intensidade percebida (escala de 0 a 10)."
+    },
+    "history": {
+      "type": "string",
+      "description": "Histórico clínico relevante ou condições pré-existentes."
+    },
+    "measures_taken": {
+      "type": "string",
+      "description": "Medidas já tomadas pelo paciente para aliviar os sintomas."
+    }
+  },
+  "required": [
+    "main_complaint",
+    "symptoms",
+    "duration",
+    "frequency",
+    "intensity"
+  ]
+}
