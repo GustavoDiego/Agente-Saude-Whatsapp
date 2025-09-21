@@ -6,7 +6,9 @@ para guiar o LLM na extração.
 
 from pydantic import BaseModel, Field, conint
 from typing import Optional
+
 IntensityScale = conint(ge=0, le=10)
+
 
 class Triage(BaseModel):
     """Estrutura consolidada da triagem coletada pelo agente."""
@@ -14,19 +16,23 @@ class Triage(BaseModel):
     conversation_id: Optional[str] = Field(
         None, description="Identificador único da conversa associada."
     )
-    queixa_principal: str = Field(..., description="Motivo central do contato.")
-    sintomas: str = Field(..., description="Descrição detalhada dos sintomas.")
+    queixa_principal: str = Field(
+        default="", description="Motivo central do contato."
+    )
+    sintomas: str = Field(
+        default="", description="Descrição detalhada dos sintomas."
+    )
     duracao_frequencia: str = Field(
-        ..., description="Desde quando os sintomas começaram e com que frequência ocorrem."
+        default="", description="Desde quando os sintomas começaram e com que frequência ocorrem."
     )
     intensidade: IntensityScale = Field(
-        ..., description="Intensidade da dor/desconforto (escala de 0 a 10)."
+        default=0, description="Intensidade da dor/desconforto (escala de 0 a 10)."
     )
-    historico: Optional[str] = Field(
-        None, description="Condições pré-existentes ou episódios anteriores."
+    historico: str = Field(
+        default="", description="Condições pré-existentes ou episódios anteriores."
     )
-    medidas_tomadas: Optional[str] = Field(
-        None, description="Medidas adotadas pelo usuário até agora."
+    medidas_tomadas: str = Field(
+        default="", description="Medidas adotadas pelo usuário até agora."
     )
 
     class Config:

@@ -19,7 +19,7 @@ class ChatRequest(BaseModel):
         None,
         description="Identificador do usuário no canal de origem (ex.: wa_id, hash)."
     )
-    channel: Literal["whatsapp", "lovable"] = Field(
+    channel: Literal["whatsapp", "web"] = Field(
         ...,
         description="Origem da mensagem."
     )

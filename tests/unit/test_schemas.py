@@ -23,7 +23,7 @@ def test_chat_request_valid():
     req = ChatRequest(
         conversation_id="conv123",
         user_id="user123",
-        channel="lovable",
+        channel="web",
         message="Tenho dor de cabeça há 2 dias",
     )
     assert req.conversation_id == "conv123"
@@ -35,7 +35,7 @@ def test_chat_request_missing_required():
     Deve falhar se faltar campo obrigatório em ChatRequest.
     """
     with pytest.raises(ValidationError):
-        ChatRequest(channel="lovable", message="Teste")
+        ChatRequest(channel="web", message="Teste")
 
 
 def test_chat_response_default_timestamp():

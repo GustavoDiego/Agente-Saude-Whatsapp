@@ -26,7 +26,7 @@ async def test_save_and_get_message(db, monkeypatch):
     chat_request = ChatRequest(
         conversation_id="conv1",
         user_id="user123",
-        channel="lovable",
+        channel="web",
         message="Estou com dor de cabeça"
     )
     chat_response = ChatResponse(
