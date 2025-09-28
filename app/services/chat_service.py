@@ -28,6 +28,21 @@ class ChatService:
         self.persistence = persistence
         self.guard = guard
         self.triage_agent = triage_agent
+    async def _get_relevant_history(self, conversation_id: str):
+        history = await self.persistence.get_conversation(conversation_id, limit=50)
+
+        cutoff_index = None
+        for i, msg in reversed(list(enumerate(history))):
+            if any(keyword in msg["response"].lower() for keyword in [
+                "procure imediatamente o pronto-socorro",
+                "Sua triagem foi registrada e será encaminhada para nossa equipe médica"
+            ]):
+                cutoff_index = i
+                break
+
+        if cutoff_index is not None:
+            return history[cutoff_index + 1 :]
+        return history
 
     async def process_message(self, payload: ChatRequest) -> ChatResponse:
         """
@@ -57,7 +72,8 @@ class ChatService:
             await self.persistence.save_message(payload, agent_response)
             return agent_response
 
-        history_docs = await self.persistence.get_conversation(payload.conversation_id, limit=20)
+        history_docs = await self._get_relevant_history(payload.conversation_id)
+
         graph = self.triage_agent.get_graph()
 
         try:

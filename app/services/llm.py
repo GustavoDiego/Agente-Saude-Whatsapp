@@ -60,7 +60,7 @@ def get_llm() -> ChatGoogleGenerativeAI:
     Instancia o modelo de linguagem Gemini via LangChain.
     """
     return ChatGoogleGenerativeAI(
-        model="gemini-1.5-flash",
+        model="gemini-2.5-flash",
         temperature=0.3,
         google_api_key=settings.GOOGLE_API_KEY,
     )
