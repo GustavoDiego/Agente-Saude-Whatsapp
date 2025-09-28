@@ -23,7 +23,7 @@ class TriageState(TypedDict, total=False):
     """
     conversation_id: str
     user_message: str
-    conversation_context: str
+    conversation_context: list[Dict[str, Any]] 
     agent_message: str
     internal_reply: str
     triage: Dict[str, Any]
@@ -107,17 +107,26 @@ class TriageAgent:
                 "Lembre-se: este é apenas um pré-atendimento e não substitui uma consulta "
                 "com um profissional de saúde."
             )
+
             triage_data = state.get("triage", {})
             if triage_data:
                 await self.persistence.save_triage(state["conversation_id"], triage_data)
-            return {**state, "agent_message": final_message}
+
+            return {
+                "conversation_id": state["conversation_id"],
+                "agent_message": final_message,
+                "triage": {},
+                "internal_reply": "",
+                "user_message": "",
+                "conversation_context": []
+            }
 
         def decide_next(state: Dict[str, Any]) -> str:
             """
             Decide se deve iniciar extração ou encerrar após o diálogo.
             """
             final_phrase = "sua triagem foi registrada"
-            if final_phrase in state.get("agent_message", "").lower():
+            if final_phrase in state.get("agent_message", "").lower() and not state.get("triage"):
                 return "llm_extract"
             return END
 

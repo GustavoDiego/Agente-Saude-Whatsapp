@@ -11,16 +11,16 @@ class ChatRequest(BaseModel):
     para processar uma mensagem de usuário em um chat.
     """
 
-    conversation_id: str = Field(
-        ...,
+    conversation_id: Optional[str] = Field(
+        default=None,
         description="Identificador único da conversa (ex.: número de telefone hasheado ou UUID gerado)."
     )
     user_id: Optional[str] = Field(
-        None,
+        default=None,
         description="Identificador do usuário no canal de origem (ex.: wa_id, hash)."
     )
     channel: Literal["whatsapp", "web"] = Field(
-        ...,
+        default=None,
         description="Origem da mensagem."
     )
     message: str = Field(
@@ -37,12 +37,12 @@ class ChatResponse(BaseModel):
     para rastreamento de sessão e auditoria.
     """
 
-    conversation_id: str = Field(
-        ...,
+    conversation_id:  Optional[str] = Field(
+        default=None,
         description="Identificador único da conversa."
     )
-    response: str = Field(
-        ...,
+    response: Optional[str] = Field(
+        default=None,
         description="Mensagem gerada pelo agente."
     )
     timestamp: datetime = Field(
