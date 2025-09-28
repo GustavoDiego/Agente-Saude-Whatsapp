@@ -102,3 +102,15 @@ Intensidade: 7/10.
 Histórico: nenhum.
 Medidas já tomadas: nenhuma.
 Responda apenas com SIM para confirmar ou NÃO para corrigir.
+
+queixa_principal → se vazio, mostrar: “nenhuma queixa registrada”
+
+sintomas → se vazio, mostrar: “nenhum sintoma informado”
+
+duracao_frequencia → se vazio, mostrar: “não informado”
+
+intensidade → se 0, mostrar: “0/10 (não informado)”
+
+historico → se vazio, mostrar: “nenhum histórico informado”
+
+medidas_tomadas → se vazio, mostrar: “nenhuma medida tomada”
