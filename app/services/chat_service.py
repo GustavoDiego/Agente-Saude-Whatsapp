@@ -50,8 +50,9 @@ class ChatService:
         Processa uma mensagem recebida do usuário:
         - Gera um conversation_id interno se vier None.
         - Salva a mensagem no histórico.
-        - Verifica emergência (encerra sem passar pelo grafo).
+        - Verifica emergência via guard (encerra sem passar pelo grafo).
         - Chama o grafo de triagem.
+        - Se a IA sinalizar emergência, força resposta fixa.
         - Persiste a resposta.
         - Retorna conversation_id=None ao front quando a conversa encerrar.
         """
@@ -113,6 +114,24 @@ class ChatService:
                     "Desculpe, houve um erro ao processar sua triagem. "
                     "Pode reformular sua mensagem?"
                 )
+
+        if "procure imediatamente o pronto-socorro" in response_text.lower():
+            response_text = (
+                "Entendi. Seus sintomas podem indicar uma situação de emergência. "
+                "Por favor, procure imediatamente o pronto-socorro mais próximo ou ligue para o 192."
+            )
+            persisted_agent = ChatResponse(
+                conversation_id=conv_id,
+                response=response_text,
+                timestamp=datetime.utcnow(),
+            )
+            await self.persistence.save_message(payload, persisted_agent)
+
+            return ChatResponse(
+                conversation_id=None,
+                response=response_text,
+                timestamp=persisted_agent.timestamp,
+            )
 
         is_close = "sua triagem foi registrada" in response_text.lower()
 
